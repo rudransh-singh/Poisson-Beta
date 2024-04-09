@@ -1,0 +1,2594 @@
+// File: README.txt
+Manual Reference Pages - PoissonBeta V1.0
+
+1. NAME
+
+	PoissonBeta - Program for inferring the kinetics of stochastic gene expression from single-cell RNA-seq data
+
+2. SYNOPSIS
+
+	>>fid_out = PoissonBetaRun('test.txt', 'result.txt', 10000)
+
+3. DESCRIPTION
+
+	PoissonBeta is a program for inferring the kinetics of stochastic gene expression from single-cell RNA-seq data.
+	It requires MATLAB with Statistics toolbox.
+
+4. COMMANDS AND OPTIONS
+	fid_out = PoissonBetaRun(input_file, output_file, Tmax)
+
+	OPTIONS:
+	input_file: input file name for single-cell RNA-seq data
+		INPUT FILE FORMAT (delimited by tab, please see 'test.txt' for an example)
+		COLUMN1: GENE NAME
+		COLUMN2: LENGTH OF TRANSCRIPT
+		COLUMN3-N: READ COUNT
+
+	output_file: output file name
+	Tmax: a maximum number of Gibbs sampling interations
+
+	OUTPUTS:
+	fid_out: file identifier of the output file. If failed, fid_out = -1
+		COLUMN1: GENE NAME
+		COLUMN2: posterior mean Si (not multiplied by transcript length and size factor)
+		COLUMN3: Koni
+		COLUMN4: Koffi
+		COLUMN5: SKoffi (not multiplied by transcript length and size factor)
+		COLUMN6: Exi (not multiplied by transcript length and size factor)
+		COLUMN7-M: Pij
+
+5. Precompiled version for Windows
+	FILES:
+	PoissonBetaRun.exe PoissonBetaRun.prj
+
+	INSTALL:
+	Download and install MCRInstaller.exe (version 7.11, 64bit) for MATLAB 2009b Windows.
+
+	Add the MCR directory to the environment variable by opening a command prompt and issuing the DOS command:
+
+	set PATH=<mcr_root>\v711\runtime\win64;%PATH% 
+
+	NOTE: <mcr_root> is the directory where MCR is installed on the target machine.         
+
+	USAGE:
+	>PoissonBetaRun test.txt result.txt 10000
+
+	
+
+// File: test.txt
+Gene	Length	Cell1	Cell2	Cell3	Cell4	Cell5	Cell6	Cell7	Cell8	Cell9	Cell10	Cell11	Cell12	
+NM_001001130	2218	59	1	2	19	16	0	0	0	2	5	0	17	
+NM_001001144	4286	541	53	183	127	81	98	46	53	68	75	19	178	
+NM_001001152	3488	2	0	0	0	0	1	0	0	16	0	0	0	
+NM_001001160	6562	3	0	203	0	0	0	0	0	0	0	0	0	
+NM_001001176	2374	1	3	322	39	23	0	0	0	0	0	1	0	
+NM_001001177	1898	1	0	0	0	0	1	0	1	0	0	1	1	
+NM_001001179	4480	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001180	3909	104	98	1	39	16	103	19	125	1	67	0	81	
+NM_001001181	1047	337	441	474	251	186	190	102	102	144	82	123	173	
+NM_001001182	7980	575	4	2	318	2	104	41	3	93	105	41	36	
+NM_001001183	1779	0	0	0	0	0	0	0	6	0	0	0	0	
+NM_001001184	3797	411	68	274	129	108	327	74	193	101	29	166	121	
+NM_001001185	581	245	303	234	116	84	75	50	89	41	58	112	104	
+NM_001001186	4079	151	1	101	0	2	42	1	0	2	0	2	58	
+NM_001001187	436	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001295	3255	212	402	9	23	0	125	4	72	40	39	426	153	
+NM_001001297	2327	233	34	52	39	2	134	39	55	64	10	0	44	
+NM_001001309	5782	0	0	0	0	1	4	0	0	0	0	43	0	
+NM_001001319	2399	0	0	0	1	0	0	0	0	0	0	1	0	
+NM_001001320	1778	0	0	0	0	0	1	0	0	0	0	0	0	
+NM_001001321	2276	2	84	2	2	2	198	31	0	98	29	124	5	
+NM_001001322	4580	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001326	4255	380	13	37	4	18	6	3	57	6	1	6	10	
+NM_001001327	1003	24	0	0	5	5	1	3	3	4	1	3	7	
+NM_001001332	387	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001333	2159	225	100	32	40	12	30	29	3	7	27	11	23	
+NM_001001334	1651	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001335	1838	0	96	0	0	0	0	9	17	0	0	12	1	
+NM_001001444	405	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001445	2520	0	0	0	0	1	0	0	0	0	0	0	0	
+NM_001001446	1916	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001447	2620	200	7	241	0	0	40	11	5	38	21	0	45	
+NM_001001449	889	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001450	927	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001451	996	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001452	882	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001453	960	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001454	3842	239	155	3	93	39	1	0	1	6	0	0	0	
+NM_001001488	6440	0	0	1	0	3	9	2	1	0	0	2	1	
+NM_001001489	2372	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001490	3732	1	0	0	0	2	1	0	0	0	0	0	1	
+NM_001001491	2082	335	140	123	110	6	32	38	37	131	19	28	115	
+NM_001001492	3170	1	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001493	699	21	53	25	16	19	12	13	24	27	15	5	30	
+NM_001001495	3769	1	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001496	1977	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001559	1638	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001565	3065	293	197	132	53	59	56	16	63	7	73	108	37	
+NM_001001566	2955	294	197	132	53	59	56	16	63	7	73	109	37	
+NM_001001602	6394	659	152	265	80	170	280	121	368	77	27	61	184	
+NM_001001650	949	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001714	1287	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001735	3630	13	29	4	86	3	32	7	47	10	19	0	44	
+NM_001001738	3766	1	0	0	0	0	0	0	0	20	0	0	0	
+NM_001001792	2813	20	79	849	27	39	24	5	193	31	57	44	57	
+NM_001001796	1550	0	0	0	0	0	0	0	0	0	0	0	1	
+NM_001001798	5942	326	209	348	1	2	2	40	3	57	1	1	79	
+NM_001001803	258	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001804	1258	0	0	0	43	11	0	0	1	41	0	0	0	
+NM_001001805	939	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001806	3532	294	118	14	83	36	182	35	163	39	33	32	98	
+NM_001001807	933	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001808	936	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001809	942	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001810	924	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001880	2250	660	400	756	435	220	113	112	300	252	123	20	402	
+NM_001001881	5162	1	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001882	4378	1257	787	867	245	389	147	205	208	308	168	83	154	
+NM_001001883	11179	0	2	194	0	0	36	0	49	35	13	2	63	
+NM_001001884	4854	32	0	3	25	4	0	0	0	10	5	9	14	
+NM_001001885	3945	134	0	468	1	56	0	0	0	0	0	0	0	
+NM_001001892	1646	186	4	117	46	22	3	32	2	212	62	21	35	
+NM_001001932	7836	21	9	174	0	2	83	21	1	58	2	0	49	
+NM_001001979	7128	1	0	0	0	1	0	0	0	0	0	0	0	
+NM_001001980	6142	2	1	1	25	0	0	1	0	0	0	76	1	
+NM_001001981	3694	18	16	16	34	5	3	4	6	2	10	2	9	
+NM_001001982	4716	1	0	0	0	0	0	0	0	0	0	1	0	
+NM_001001983	6431	435	609	293	81	128	77	62	57	37	102	75	46	
+NM_001001984	7265	409	404	460	64	99	81	32	152	51	31	7	26	
+NM_001001985	6529	84	0	0	20	81	0	0	1	44	1	0	46	
+NM_001001986	5614	5	1	1	11	1	10	0	0	24	1	0	0	
+NM_001001999	2085	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001002004	7439	224	337	182	218	69	169	56	199	140	121	54	127	
+NM_001002005	3412	0	1	0	0	0	0	0	0	1	0	0	0	
+NM_001002008	2597	21	47	142	56	45	47	31	104	12	1	81	144	
+NM_001002011	3152	42	311	53	34	50	312	31	5	11	6	3	18	
+NM_001002012	2522	1	0	4	45	0	55	0	107	39	0	0	0	
+NM_001002238	4914	0	0	0	126	0	70	0	1	0	0	23	0	
+NM_001002239	775	11	11	19	6	1	5	4	11	5	2	1	4	
+NM_001002240	4887	0	0	0	126	0	70	0	1	0	0	23	0	
+NM_001002241	5187	0	0	0	126	0	70	0	1	0	0	23	0	
+NM_001002267	1733	1	2	1	0	40	4	0	0	0	0	0	0	
+NM_001002268	6505	6	0	2	0	0	54	0	0	0	0	0	0	
+NM_001002272	6611	144	131	157	58	125	2	35	86	116	93	1	70	
+NM_001002764	5799	141	6	122	122	13	126	38	61	87	92	62	156	
+NM_001002786	4105	0	0	0	0	0	0	1	1	0	1	0	0	
+NM_001002787	2030	0	0	0	0	0	2	0	0	0	0	0	0	
+NM_001002791	625	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001002842	2272	0	0	3	0	0	0	0	0	0	0	0	0	
+NM_001002846	2058	187	5	179	7	1	140	21	1	87	30	48	1	
+
+
+// File: PoissonBetaSizeFactor.m
+function size_factor = PoissonBetaSizeFactor(read_count)
+% PoissonBetaSizeFactor
+% 
+% by Jong Kyoung Kim
+% Last update: 17 October 2011
+
+[temp,n] = size(read_count);
+nonzero_gene = (sum(log(read_count),2)~=-Inf);
+normalized_read_count = read_count(nonzero_gene,:);
+normalized_read_count = normalized_read_count./repmat(geomean(normalized_read_count,2), 1, n);
+size_factor = zeros(1,n);
+for ii=1:n
+    size_factor(ii) = median(normalized_read_count(normalized_read_count(:,ii)~=0,ii));
+end;
+
+
+// File: PoissonBetaLogPosterior.m
+function Q = PoissonBetaLogPosterior(count_data, A_param, C_param)
+% PoissonBetaLogPosterior
+% 
+% Input: 
+% 1. sum_count: sum(count_data,2)
+% 2. A_param: hyperparameters
+% 3. C_param: variational parameters
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+% log p(X|Z,p, s)
+Q = sum(sum(count_data.*(repmat(C_param.lnSi, 1, C_param.num_replicate) + ...
+    C_param.lnoneminusPij))) + A_param(1).ln_size_factor_sum + ...
+    sum(sum(A_param.size_factor.*(repmat(C_param.Si, 1, C_param.num_replicate).*(C_param.Pij-1)))) - ...
+    A_param.count_data_gammaln;
+
+% log p(p|k_off, k_on)
+Q = Q + sum(sum(gammaln(repmat(C_param.Koni + C_param.Koffi, 1, C_param.num_replicate)) - ...
+    gammaln(repmat(C_param.Koni, 1, C_param.num_replicate)) - gammaln(repmat(C_param.Koffi, 1, C_param.num_replicate)) + ...
+    repmat(C_param.Koffi-1, 1, C_param.num_replicate).*C_param.lnPij + ...
+    repmat(C_param.Koni-1, 1, C_param.num_replicate).*C_param.lnoneminusPij));
+
+% log p(s)
+Q = Q + sum(-1*C_param.Si./A_param.beta_si + (A_param.alpha_si-1).*C_param.lnSi - ...
+    A_param.alpha_si.*log(A_param.beta_si) - gammaln(A_param.alpha_si));
+
+% log p(kon)
+Q = Q + sum(-1*C_param.Koni./A_param.beta_koni + (A_param.alpha_koni-1).*C_param.lnKoni - ...
+    A_param.alpha_koni.*log(A_param.beta_koni) - gammaln(A_param.alpha_koni));
+
+% log p(koff)
+Q = Q + sum(-1*C_param.Koffi./A_param.beta_koffi + (A_param.alpha_koffi-1).*C_param.lnKoffi - ...
+    A_param.alpha_koffi.*log(A_param.beta_koffi) - gammaln(A_param.alpha_koffi));
+
+// File: PoissonBetaUpdatePij_C.mexw64
+// File: PoissonBetaUpdateKoffi_C.c
+/* PoissonBetaUpdateKoffi_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define CPARAMIN prhs[1]
+#define APARAMIN prhs[0]
+#define CPARAMOUT_KOFFI plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *alpha_koff, *beta_koff, *lnPij;
+    double *mdouble;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 2) {
+      mexErrMsgTxt("2 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));     
+    
+    cparam->Koni = mxGetPr(mxGetField(CPARAMIN,0,"Koni"));
+        
+    /* Read Koffi */
+    cparam->Koffi = mxMalloc(sizeof(double)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Koffi"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Koffi[ii] = mdouble[ii];  
+    }         
+    
+    /* Read lnPij */
+    lnPij = mxGetPr(mxGetField(CPARAMIN,0,"lnPij"));
+    
+    /* Read APARAMIN */
+    alpha_koff = mxGetPr(mxGetField(APARAMIN,0,"alpha_koffi"));
+    beta_koff = mxGetPr(mxGetField(APARAMIN,0,"beta_koffi"));
+    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        xx = cparam->Koffi[ii];
+        widths = cparam->Koffi[ii]/2.0;
+        log_Px = logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, xx);
+        log_uprime = log(my_rand()) + log_Px;
+        xprime = xx;
+        rr = my_rand();
+        x_l = xx - rr*widths;
+        x_r = xx + (1-rr)*widths;
+        J = (int)floor(my_rand()*MAXSTEPSIZE);
+        K = MAXSTEPSIZE-1-J;
+        while (logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, x_l) > log_uprime && x_l - widths >= 0.0 && J > 0) {
+            x_l = x_l - widths;
+            J = J - 1;
+        }
+        while (logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, x_r) > log_uprime && K > 0) {
+            x_r = x_r + widths;
+            K = K - 1;
+        }
+        while (1) {
+            xprime = my_rand()*(x_r - x_l) + x_l;
+            log_Px = logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, xprime);
+            if (log_Px > log_uprime) {
+                break;
+            }
+            else {
+                if (xprime > xx) {
+                    x_r = xprime;
+                }
+                else if (xprime < xx) {
+                    x_l = xprime;
+                }
+                else {
+                    break;
+                    /*mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");*/
+                }
+            }
+        }
+        cparam->Koffi[ii] = xprime;
+    } 
+    /* Write Koffi */
+    CPARAMOUT_KOFFI = mxCreateDoubleMatrix(cparam->num_gene, 1, mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_KOFFI);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mdouble[ii] = cparam->Koffi[ii];
+    }
+    mxFree(cparam->Koffi);
+    
+    mxFree(cparam);
+}
+
+// File: PoissonBetaRun.m
+function fid_out = PoissonBetaRun(input_file, output_file, Tmax)
+
+% PoissonBeta
+% 
+% Input: 
+% 1. input_file: input file for count data
+% 2. output_file: output file for results
+% 3. Tmax: a maximum number of Gibbs sampling interations
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 26 December 2012
+
+read_count = importdata(input_file, '\t', 1);
+transcript_length = read_count.data(:,1);
+gene_id = read_count.textdata(2:end,1);
+read_count = read_count.data(:, 2:end);
+
+if ischar(Tmax)
+    Tmax = str2double(Tmax);
+end;
+
+[num_gene, num_cell] = size(read_count);
+
+expressed_index = (sum(read_count,2)~=0);
+read_count_expressed = read_count(expressed_index,:);
+
+size_factor = PoissonBetaSizeFactor(read_count_expressed);
+
+[samples_Pij, samples_Si, samples_Koni, samples_Koffi, Qiter] = ...
+    PoissonBeta(read_count_expressed, size_factor, transcript_length(expressed_index), Tmax);
+
+mean_Si = mean(samples_Si, 2);
+mean_Koni = mean(samples_Koni, 2);
+mean_Koffi = mean(samples_Koffi, 2);
+mean_Pij = 1-samples_Pij;
+mean_SKoffi = mean(samples_Si./samples_Koffi,2);
+mean_Exi = mean(samples_Si.*(samples_Koni./(samples_Koffi+samples_Koni)),2);
+
+fid_out = fopen(output_file, 'w');
+fprintf(fid_out, '%s\t%s\t%s\t%s\t%s\t%s\t', 'Gene', 'Si', 'Koni', 'Koffi', 'SKoffi', 'Exi');
+for jj=1:num_cell
+    fprintf(fid_out, '%s\t', strcat('Pij', '(Cell', num2str(jj),')'));
+end;
+fprintf(fid_out, '\n');
+count = 1;
+for ii=1:num_gene
+    fprintf(fid_out, '%s\t', gene_id{ii});
+    if expressed_index(ii) == 1
+        fprintf(fid_out, '%f\t%f\t%f\t%f\t%f\t', mean_Si(count), mean_Koni(count), ...
+            mean_Koffi(count), mean_SKoffi(count), mean_Exi(count));
+        for jj=1:num_cell
+            fprintf(fid_out, '%f\t', mean_Pij(count,jj));
+        end;
+        count = count + 1;
+    else
+        fprintf(fid_out, '%f\t%f\t%f\t%f\t%f\t', 0, 0, ...
+            0, 0, 0);
+        for jj=1:num_cell
+            fprintf(fid_out, '%f\t', 0);
+        end;  
+    end;
+    fprintf(fid_out, '\n');
+end;
+fclose(fid_out);
+
+// File: PoissonBetaRun.exe
+// File: PoissonBetaUpdateKoffi_C.mexw64
+// File: PoissonBetaUpdatePij_C.c
+/* PoissonBetaUpdatePij_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: September 24 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define COUNTDATA prhs[0]
+#define CPARAMIN prhs[1]
+#define APARAMIN prhs[2]
+#define CPARAMOUT_PIJ plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *count_data, *size_factor;
+    double *mdouble;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 3) {
+      mexErrMsgTxt("3 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));      
+    cparam->Si = mxGetPr(mxGetField(CPARAMIN,0,"Si"));
+    cparam->Koni = mxGetPr(mxGetField(CPARAMIN,0,"Koni"));
+    cparam->Koffi = mxGetPr(mxGetField(CPARAMIN,0,"Koffi"));
+        
+    /* Read Pij */
+    cparam->Pij = mxMalloc(sizeof(double*)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Pij"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Pij[ii] = mxMalloc(sizeof(double)*cparam->num_replicate);
+        for (jj = 0; jj < cparam->num_replicate; jj++) {
+            cparam->Pij[ii][jj] = mdouble[jj*cparam->num_gene+ii];
+        }
+    }          
+
+    /* Read COUNTDATA */ 
+    count_data = mxGetPr(COUNTDATA);
+    
+    /* Read APARAMIN */
+    size_factor = mxGetPr(mxGetField(APARAMIN,0,"size_factor"));
+    
+    /*init_genrand64((unsigned long)time(NULL));*/
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        for (jj = 0; jj < cparam->num_replicate; jj++) {
+            xx = cparam->Pij[ii][jj];                
+            widths = xx/2.0;
+            log_Px = logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], xx);
+            log_uprime = log(my_rand()) + log_Px;
+            xprime = xx;
+            rr = my_rand();
+            x_l = xx - rr*widths;
+            x_r = xx + (1.0-rr)*widths;
+            J = (int)floor(my_rand()*MAXSTEPSIZE);
+            K = MAXSTEPSIZE-1-J; 
+            while ((logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], x_l) > log_uprime) && (x_l - widths >= 0.0) && J > 0) {
+                x_l = x_l - widths;
+                J = J - 1;
+            }
+            while ((logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], x_r) > log_uprime) && (x_r + widths <= 1.0) && K > 0) {
+                x_r = x_r + widths;
+                K = K - 1;
+            }
+            if (x_l < 0) {
+                x_l = 0.0;
+            }
+            if (x_r > 1.0) {
+                x_r = 1.0;
+            }
+            while (1) {
+                xprime = my_rand()*(x_r - x_l) + x_l;
+                log_Px = logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], xprime);
+                if (log_Px > log_uprime) {
+                    break;
+                }
+                else {
+                    if (xprime > xx) {
+                        x_r = xprime;
+                    }
+                    else if (xprime < xx) {
+                        x_l = xprime;
+                    }
+                    else {
+                        break;
+                        /*mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");*/
+                    }
+                }
+            }
+            cparam->Pij[ii][jj] = xprime;
+        }
+    } 
+    /* Write Pij */
+    CPARAMOUT_PIJ = mxCreateDoubleMatrix(cparam->num_gene,cparam->num_replicate,mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_PIJ);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        for (jj = 0; jj < cparam->num_replicate; jj++) {
+            mdouble[jj*cparam->num_gene+ii] = cparam->Pij[ii][jj];
+        }
+    }    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mxFree(cparam->Pij[ii]);                
+    }   
+    mxFree(cparam->Pij);
+    mxFree(cparam);
+}
+
+
+// File: PoissonBetaCparam.c
+/*% PoissonBetaCparam.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+/* 
+   A C-program for MT19937-64 (2004/9/29 version).
+   Coded by Takuji Nishimura and Makoto Matsumoto.
+
+   This is a 64-bit version of Mersenne Twister pseudorandom number
+   generator.
+
+   Before using, initialize the state by using init_genrand64(seed)  
+   or init_by_array64(init_key, key_length).
+
+   Copyright (C) 2004, Makoto Matsumoto and Takuji Nishimura,
+   All rights reserved.                          
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+     1. Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+
+     2. Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+
+     3. The names of its contributors may not be used to endorse or promote 
+        products derived from this software without specific prior written 
+        permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+   References:
+   T. Nishimura, ``Tables of 64-bit Mersenne Twisters''
+     ACM Transactions on Modeling and 
+     Computer Simulation 10. (2000) 348--357.
+   M. Matsumoto and T. Nishimura,
+     ``Mersenne Twister: a 623-dimensionally equidistributed
+       uniform pseudorandom number generator''
+     ACM Transactions on Modeling and 
+     Computer Simulation 8. (Jan. 1998) 3--30.
+
+   Any feedback is very welcome.
+   http://www.math.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+   email: m-mat @ math.sci.hiroshima-u.ac.jp (remove spaces)
+*/
+
+#ifndef _Cparam
+#define _Cparam
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+#define NN 312
+#define MM 156
+#define MATRIX_A 0xB5026F5AA96619E9ULL
+#define UM 0xFFFFFFFF80000000ULL /* Most significant 33 bits */
+#define LM 0x7FFFFFFFULL /* Least significant 31 bits */
+#define M_lnSqrt2PI 0.91893853320467274178
+
+
+/* The array for the state vector */
+static unsigned long long mt[NN]; 
+/* mti==NN+1 means mt[NN] is not initialized */
+static int mti=NN+1; 
+
+typedef struct _tagCparam {
+    int num_gene, num_replicate;
+    double *Koni, *Koffi, *Si;
+    double **Pij;
+} Cparam;
+
+/* initializes mt[NN] with a seed */
+void init_genrand64(unsigned long long seed)
+{
+    mt[0] = seed;
+    for (mti=1; mti<NN; mti++) 
+        mt[mti] =  (6364136223846793005ULL * (mt[mti-1] ^ (mt[mti-1] >> 62)) + mti);
+}
+
+/* generates a random number on [0, 2^64-1]-interval */
+unsigned long long genrand64_int64(void)
+{
+    int i;
+    unsigned long long x;
+    static unsigned long long mag01[2]={0ULL, MATRIX_A};
+
+    if (mti >= NN) { /* generate NN words at one time */
+
+        /* if init_genrand64() has not been called, */
+        /* a default initial seed is used     */
+        if (mti == NN+1) 
+            init_genrand64(5489ULL); 
+
+        for (i=0;i<NN-MM;i++) {
+            x = (mt[i]&UM)|(mt[i+1]&LM);
+            mt[i] = mt[i+MM] ^ (x>>1) ^ mag01[(int)(x&1ULL)];
+        }
+        for (;i<NN-1;i++) {
+            x = (mt[i]&UM)|(mt[i+1]&LM);
+            mt[i] = mt[i+(MM-NN)] ^ (x>>1) ^ mag01[(int)(x&1ULL)];
+        }
+        x = (mt[NN-1]&UM)|(mt[0]&LM);
+        mt[NN-1] = mt[MM-1] ^ (x>>1) ^ mag01[(int)(x&1ULL)];
+
+        mti = 0;
+    }
+  
+    x = mt[mti++];
+
+    x ^= (x >> 29) & 0x5555555555555555ULL;
+    x ^= (x << 17) & 0x71D67FFFEDA60000ULL;
+    x ^= (x << 37) & 0xFFF7EEE000000000ULL;
+    x ^= (x >> 43);
+
+    return x;
+}
+
+double loggamma(double x) {
+    static double gamma_series[] = {
+        76.18009172947146,
+        -86.50532032941677,
+        24.01409824083091,
+        -1.231739572450155,
+        0.1208650973866179e-2,
+        -0.5395239384953e-5
+    };
+    int i;
+    double denom, x1, series;
+
+    /* Lanczos method */
+    denom = x+1;
+    x1 = x + 5.5;
+    series = 1.000000000190015;
+    for(i = 0; i < 6; i++) {
+        series += gamma_series[i] / denom;
+        denom += 1.0;
+    }
+    return( M_lnSqrt2PI + (x+0.5)*log(x1) - x1 + log(series/x) );
+}
+
+/* generates a random number on (0,1)-real-interval */
+double my_rand(void)
+{
+    return ((genrand64_int64() >> 12) + 0.5) * (1.0/4503599627370496.0);
+    /* divided by 2^32 */
+}
+
+double logpbeta(double Kon, double Koff, double count_data, double size_factor, double S, double x) {
+    double log_Px;    
+    
+    log_Px = (Koff-1.0)*log(x) + (Kon-1.0)*log(1.0-x) + log(1.0-x)*count_data + size_factor*(S*(x-1.0));
+    return log_Px;
+}
+
+double logpgammakoff(double alpha_koff, double beta_koff, double Kon, double *lnPij, int num_gene, int num_replicate, int ii, double x) {
+    double log_Px, sum_Pij=0.0;
+    int jj;
+    
+    for (jj=0; jj < num_replicate; jj++) {
+        sum_Pij = sum_Pij + lnPij[jj*num_gene+ii];
+    }     
+    log_Px = -1.0*x/beta_koff + (alpha_koff-1.0)*log(x) + (double)(num_replicate*(loggamma(x+Kon) - loggamma(x))) + (x-1.0)*sum_Pij;
+    return log_Px;
+}
+
+double logpgammakon(double alpha_kon, double beta_kon, double Koff, double *lnoneminusPij, int num_gene, int num_replicate, int ii, double x) {
+    double log_Px, sum_Pij=0.0;
+    int jj;
+    
+    for (jj=0; jj < num_replicate; jj++) {
+        sum_Pij = sum_Pij + lnoneminusPij[jj*num_gene+ii];
+    }    
+    log_Px = -1.0*x/beta_kon + (alpha_kon-1.0)*log(x) + (double)(num_replicate*(loggamma(x+Koff) - loggamma(x))) + (x-1.0)*sum_Pij;
+    return log_Px;
+}
+
+double logpgammas(double alpha_s, double beta_s, double *size_factor, double *Pij, double sum_count, int num_gene, int num_replicate, int ii, double x) {
+    double log_Px, sum_Pij=0.0;
+    int jj;
+    
+    for (jj=0; jj < num_replicate; jj++) {
+        sum_Pij = sum_Pij + size_factor[jj*num_gene+ii]*(Pij[jj*num_gene+ii]-1.0);
+    }
+    log_Px = -1.0*x/beta_s + (alpha_s-1.0)*log(x) + sum_count*log(x) + x*sum_Pij;
+    return log_Px;
+}
+        
+#endif
+
+// File: PoissonBetaUpdateKoni_C.mexw64
+// File: PoissonBeta.m
+function [samples_Pij, samples_Si, samples_Koni, samples_Koffi, Qiter] = ...
+    PoissonBeta(count_data, size_factor, transcript_length, Tmax)
+% PoissonBeta
+% 
+% Input: 
+% 1. count_data: count data
+% 2. size_factor
+% 3. transcript_length
+% 4. Tmax: a maximum number of Gibbs sampling interations
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 10 July 2012
+
+RandStream.setDefaultStream ...
+     (RandStream('mt19937ar','seed',sum(100*clock)));
+
+burnin = round(Tmax/2);
+
+[num_gene, num_replicate] = size(count_data);
+sum_count = sum(count_data, 2);
+
+%% Initialization for hyperparameters
+[C_param, A_param] = PoissonBetaInit(count_data, size_factor, transcript_length, num_gene, num_replicate);
+
+%% Gibbs sampling
+Qiter = zeros(Tmax,1);
+samples_Pij = zeros(C_param.num_gene, C_param.num_replicate);
+samples_Si = zeros(C_param.num_gene, Tmax - burnin);
+samples_Koni = zeros(C_param.num_gene, Tmax - burnin);
+samples_Koffi = zeros(C_param.num_gene, Tmax - burnin);
+for t=1:Tmax
+    fprintf('%s\n', 'Update Pij');
+%     C_param = PoissonBetaUpdatePij(count_data, C_param, A_param);
+    C_param.Pij = PoissonBetaUpdatePij_C(count_data, C_param, A_param);
+    C_param.lnPij = log(C_param.Pij);
+    C_param.lnoneminusPij = log(1-C_param.Pij);
+    fprintf('%s\n', 'Update Si');
+%     C_param = PoissonBetaUpdateSi(sum_count, A_param, C_param);
+    C_param.Si = PoissonBetaUpdateSi_C(sum_count, A_param, C_param);
+    C_param.lnSi = log(C_param.Si);
+    fprintf('%s\n', 'Update Koni');
+%     C_param = PoissonBetaUpdateKoni(A_param, C_param);
+    C_param.Koni = PoissonBetaUpdateKoni_C(A_param, C_param);
+    C_param.lnKoni = log(C_param.Koni);
+    fprintf('%s\n', 'Update Koffi');
+%     C_param = PoissonBetaUpdateKoffi(A_param, C_param);   
+    C_param.Koffi = PoissonBetaUpdateKoffi_C(A_param, C_param);  
+    C_param.lnKoffi = log(C_param.Koffi);
+    Qiter(t) = PoissonBetaLogPosterior(count_data, A_param, C_param);
+    fprintf('%s\t%d\t%d\n', 'PoissonBeta Gibbs Sampling Iteration', t, Qiter(t));
+    if t > burnin
+        samples_Pij = samples_Pij + C_param.Pij;
+        samples_Si(:, t-burnin) = C_param.Si;
+        samples_Koni(:, t-burnin) = C_param.Koni;
+        samples_Koffi(:, t-burnin) = C_param.Koffi;
+    end;
+end;
+samples_Pij = samples_Pij/(Tmax-burnin);
+
+// File: PoissonBetaUpdateSi_C.c
+/* PoissonBetaUpdateSi_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define CPARAMIN prhs[2]
+#define APARAMIN prhs[1]
+#define SUM_COUNT prhs[0]
+#define CPARAMOUT_SI plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *alpha_s, *beta_s, *size_factor, *sum_count, *Pij;
+    double *mdouble;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 3) {
+      mexErrMsgTxt("3 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));     
+        
+    /* Read Si */
+    cparam->Si = mxMalloc(sizeof(double)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Si"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Si[ii] = mdouble[ii];  
+    }         
+    
+    /* Read Pij */
+    Pij = mxGetPr(mxGetField(CPARAMIN,0,"Pij"));
+    
+    /* Read sum_count */
+    sum_count = mxGetPr(SUM_COUNT);
+    
+    /* Read APARAMIN */
+    size_factor = mxGetPr(mxGetField(APARAMIN,0,"size_factor"));
+    alpha_s = mxGetPr(mxGetField(APARAMIN,0,"alpha_si"));
+    beta_s = mxGetPr(mxGetField(APARAMIN,0,"beta_si"));
+    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        xx = cparam->Si[ii];
+        widths = cparam->Si[ii]/2.0;
+        log_Px = logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, xx);
+        log_uprime = log(my_rand()) + log_Px;
+        xprime = xx;
+        rr = my_rand();
+        x_l = xx - rr*widths;
+        x_r = xx + (1-rr)*widths;
+        J = (int)floor(my_rand()*MAXSTEPSIZE);
+        K = MAXSTEPSIZE-1-J;
+        while (logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, x_l) > log_uprime && x_l - widths >= 0.0 && J > 0) {
+            x_l = x_l - widths;
+            J = J - 1;
+        }
+        while (logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, x_r) > log_uprime && K > 0) {
+            x_r = x_r + widths;
+            K = K - 1;
+        }
+        while (1) {
+            xprime = my_rand()*(x_r - x_l) + x_l;
+            log_Px = logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, xprime);
+            if (log_Px > log_uprime) {
+                break;
+            }
+            else {
+                if (xprime > xx) {
+                    x_r = xprime;
+                }
+                else if (xprime < xx) {
+                    x_l = xprime;
+                }
+                else {
+                    mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");
+                }
+            }
+        }
+        cparam->Si[ii] = xprime;
+    } 
+    /* Write Si */
+    CPARAMOUT_SI = mxCreateDoubleMatrix(cparam->num_gene, 1, mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_SI);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mdouble[ii] = cparam->Si[ii];
+    }
+    mxFree(cparam->Si);
+    
+    mxFree(cparam);
+}
+
+// File: PoissonBetaUpdateKoni.m
+function C_param = PoissonBetaUpdateKoni(A_param, C_param)
+% PoissonBetaUpdateKoni
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+for ii=1:C_param.num_gene
+    f = @(x) -1*x./A_param.beta_koni(ii) + (A_param.alpha_koni(ii)-1).*log(x) + ...
+        sum(gammaln(x + C_param.Koffi(ii)) - gammaln(x) + (x-1)*C_param.lnoneminusPij(ii,:));
+    C_param.Koni(ii) = PoissonBetaSliceSampleGamma(f, C_param.Koni(ii), C_param.Koni(ii)/2);
+end;
+C_param(1).lnKoni = log(C_param(1).Koni);
+
+// File: concatenate.py
+import os
+
+# Set the directory path
+directory = "."
+
+# Set the output file name
+output_file = "concatenated_code.txt"
+
+# Get a list of all files in the directory
+files = os.listdir(directory)
+
+# Open the output file in write mode
+with open(output_file, "w", encoding="utf-8") as output:
+    # Iterate over each file in the directory
+    for file in files:
+        # Get the full file path
+        file_path = os.path.join(directory, file)
+        
+        # Check if the file is a regular file (not a directory)
+        if os.path.isfile(file_path):
+            try:
+                # Open the file in read mode with UTF-8 encoding
+                with open(file_path, "r", encoding="utf-8") as f:
+                    # Write the file name as a comment
+                    output.write(f"// File: {file}\n")
+                    
+                    # Write the file content
+                    output.write(f.read())
+                    
+                    # Add a newline separator
+                    output.write("\n\n")
+            except UnicodeDecodeError:
+                print(f"Skipping file '{file}' due to encoding error.")
+
+print("Concatenation complete. Output file:", output_file)
+
+
+
+// File: main_poissonbeta_esc.m
+% main_poissonbeta.m
+% PoissonBeta: a Poisson-Beta model for RNA-Seq data analysis
+%
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: October 29 2011
+
+clc; clear;
+dir_data = 'C:\research\project\TangCellStemCell\data';
+dir_poissonbeta = 'C:\research\research_program\PoissonBeta\source\PoissonBeta_Gene';
+
+% read data
+cd(dir_data);
+[num, ~, raw] = xlsread('mmc3');
+[num_row, num_column] = size(raw);
+
+% select ESC
+esc_index = zeros(num_column-1,1);
+for ii=1:num_column
+    if ~isempty(strfind(raw{1, ii}, 'ESC_A'))
+        esc_index(ii-1) = 1;
+    end;
+end;
+
+transcript_length = num(:, 6);
+read_count = num(:, logical(esc_index));
+read_count(:,13) = []; % remove a technical replicate
+
+cd(dir_poissonbeta);
+size_factor = PoissonBetaSizeFactor(read_count);
+
+% select expressed genes
+
+expressed_index = (sum(read_count,2)~=0);
+read_count = read_count(expressed_index,:);
+transcript_length = transcript_length(expressed_index);
+gene_id = raw(2:end,1);
+gene_id = gene_id(expressed_index);
+
+cd(dir_poissonbeta);
+Tmax = 1000;
+clear num; clear raw;
+[samples_Pij, samples_Si, samples_Koni, samples_Koffi, Qiter] = ...
+    PoissonBeta(read_count, size_factor, transcript_length, Tmax);
+
+cd(dir_data)
+save mESC_genewise_T10000 samples_Pij samples_Si samples_Koni samples_Koffi Qiter ...
+    read_count size_factor transcript_length gene_id;
+
+
+// File: PoissonBetaSliceSampleGamma.m
+function samples = PoissonBetaSliceSampleGamma(logdist, xx, widths)
+% SliceSampleGamma
+% 
+% By Jong Kyoung Kim 
+% Modified from slice_sample.m by Iain Murray May 2004
+% jkkim@ebi.ac.uk
+% Last Update: August 31 2011
+
+maxStepSize = 1000;
+
+log_Px = feval(logdist, xx);
+
+log_uprime = log(rand) + log_Px;
+
+xprime = xx;
+
+% Create a horizontal interval (x_l, x_r) enclosing xx
+rr = rand;
+x_l = xx - rr*widths;
+x_r = xx + (1-rr)*widths;
+J = floor(rand*maxStepSize);
+K = maxStepSize-1-J;
+while (feval(logdist, x_l) > log_uprime) && x_l - widths >=0 && J > 0
+    x_l = x_l - widths;
+    J = J - 1;
+end;
+while (feval(logdist, x_r) > log_uprime) && K > 0
+    x_r = x_r + widths;
+    K = K - 1;
+end;
+
+% Propose xprimes and shrink interval until good one found
+zz = 0;
+while 1
+    zz = zz + 1;
+    %fprintf('Step %d       \r', zz);
+    xprime = rand*(x_r - x_l) + x_l;
+    log_Px = feval(logdist, xprime);
+    if log_Px > log_uprime
+        break % this is the only way to leave the while loop
+    else
+        % Shrink in
+        if xprime > xx
+            x_r = xprime;
+        elseif xprime < xx
+            x_l = xprime;
+        else
+            error('BUG DETECTED: Shrunk to current position and still not acceptable.');
+        end;
+    end;
+end;
+samples = xprime;
+
+// File: PoissonBetaUpdateKoni_C.c
+/* PoissonBetaUpdateKoni_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define CPARAMIN prhs[1]
+#define APARAMIN prhs[0]
+#define CPARAMOUT_KONI plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *alpha_kon, *beta_kon;
+    double *mdouble, *lnoneminusPij;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 2) {
+      mexErrMsgTxt("2 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));     
+    
+    cparam->Koffi = mxGetPr(mxGetField(CPARAMIN,0,"Koffi"));
+        
+    /* Read Koni */
+    cparam->Koni = mxMalloc(sizeof(double)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Koni"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Koni[ii] = mdouble[ii];  
+    }         
+    
+    /* Read lnoneminusPij */
+    lnoneminusPij = mxGetPr(mxGetField(CPARAMIN,0,"lnoneminusPij"));
+
+    /* Read APARAMIN */
+    alpha_kon = mxGetPr(mxGetField(APARAMIN,0,"alpha_koni"));
+    beta_kon = mxGetPr(mxGetField(APARAMIN,0,"beta_koni"));
+    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        xx = cparam->Koni[ii];
+        widths = cparam->Koni[ii]/2.0;
+        log_Px = logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, xx);
+        log_uprime = log(my_rand()) + log_Px;
+        xprime = xx;
+        rr = my_rand();
+        x_l = xx - rr*widths;
+        x_r = xx + (1-rr)*widths;
+        J = (int)floor(my_rand()*MAXSTEPSIZE);
+        K = MAXSTEPSIZE-1-J;
+        while (logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, x_l) > log_uprime && x_l - widths >= 0.0 && J > 0) {
+            x_l = x_l - widths;
+            J = J - 1;
+        }
+        while (logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, x_r) > log_uprime && K > 0) {
+            x_r = x_r + widths;
+            K = K - 1;
+        }
+        while (1) {
+            xprime = my_rand()*(x_r - x_l) + x_l;
+            log_Px = logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, xprime);
+            if (log_Px > log_uprime) {
+                break;
+            }
+            else {
+                if (xprime > xx) {
+                    x_r = xprime;
+                }
+                else if (xprime < xx) {
+                    x_l = xprime;
+                }
+                else {
+                    break;
+                    /*mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");*/
+                }
+            }
+        }
+        cparam->Koni[ii] = xprime;
+    } 
+    /* Write Koni */
+    CPARAMOUT_KONI = mxCreateDoubleMatrix(cparam->num_gene, 1, mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_KONI);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mdouble[ii] = cparam->Koni[ii];
+    }
+    mxFree(cparam->Koni);
+    
+    mxFree(cparam);
+}
+
+// File: PoissonBetaSliceSampleBeta.m
+function samples = PoissonBetaSliceSampleBeta(logdist, xx, widths)
+% SliceSampleBeta
+% 
+% By Jong Kyoung Kim 
+% Modified from slice_sample.m by Iain Murray May 2004
+% jkkim@ebi.ac.uk
+% Last Update: August 31 2011
+
+maxStepSize = 1000;
+
+log_Px = feval(logdist, xx);
+
+log_uprime = log(rand) + log_Px;
+
+xprime = xx;
+
+% Create a horizontal interval (x_l, x_r) enclosing xx
+rr = rand;
+x_l = xx - rr*widths;
+x_r = xx + (1-rr)*widths;
+J = floor(rand*maxStepSize);
+K = maxStepSize-1-J;
+while (feval(logdist, x_l) > log_uprime) && x_l - widths >=0 && J > 0
+    x_l = x_l - widths;
+    J = J - 1;
+end;
+while (feval(logdist, x_r) > log_uprime) && x_r + widths <=1 && K > 0
+    x_r = x_r + widths;
+    K = K - 1;
+end;
+if x_l < 0
+    x_l = 0;
+end;
+if x_r > 1
+    x_r = 1;
+end;
+
+% Propose xprimes and shrink interval until good one found
+while 1
+    xprime = rand*(x_r - x_l) + x_l;
+    log_Px = feval(logdist, xprime);
+    if log_Px > log_uprime
+        break % this is the only way to leave the while loop
+    else
+        % Shrink in
+        if xprime > xx
+            x_r = xprime;
+        elseif xprime < xx
+            x_l = xprime;
+        else
+            error('BUG DETECTED: Shrunk to current position and still not acceptable.');
+        end;
+    end;
+end;
+samples = xprime;
+
+// File: PoissonBetaUpdateKoffi.m
+function C_param = PoissonBetaUpdateKoffi(A_param, C_param)
+% PoissonBetaUpdateKonc
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+for ii=1:C_param.num_gene
+    f = @(x) -1*x./A_param.beta_koffi(ii) + (A_param.alpha_koffi(ii)-1).*log(x) + ...
+        sum(gammaln(x + C_param.Koni(ii)) - gammaln(x) + ...
+        (x-1)*C_param.lnPij(ii,:));
+    C_param.Koffi(ii) = PoissonBetaSliceSampleGamma(f, C_param.Koffi(ii), C_param.Koffi(ii)/2);
+end;
+C_param(1).lnKoffi = log(C_param(1).Koffi);
+
+// File: PoissonBetaUpdateSi_C.mexw64
+// File: PoissonBetaPostPredictive.m
+function [pred_dist, xij] = PoissonBetaPostPredictive(samples_Pcj, samples_Sc, size_factor, cluster_index, x_min, x_max)
+% PoissonBetaPostPredictive
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: September 07 2011
+
+[num_gene, num_replicate] = size(size_factor);
+[~, ~, T] = size(samples_Pcj);
+xij = linspace(x_min, x_max, 10000);
+pred_dist = zeros(length(xij),1);
+for ii=1:num_gene
+    for tt=1:T
+        for jj=1:num_replicate
+            f = @(x) exp(x*(log(size_factor(ii,jj)) + log(samples_Sc(cluster_index,tt)) + ...
+                log(1-samples_Pcj(cluster_index, jj, tt))) + ...
+                size_factor(ii,jj)*samples_Sc(cluster_index,tt)*(samples_Pcj(cluster_index, jj, tt)-1)-gammaln(x+1));
+            pred_dist = pred_dist + f(xij');
+        end;
+    end;
+end;
+
+
+
+
+
+
+// File: PoissonBetaInit.m
+function [C_param, A_param] = PoissonBetaInit(count_data, size_factor, transcript_length, num_gene, num_replicate)
+% PoissonBetaInit
+% 
+% Input:
+% 1. count_data
+% 2. size_factor
+% 3. transcript_length
+% 4. num_gene: a number of genes
+% 5. num_replicate: a number of replicates
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 25 September 2012
+
+A_param = struct('alpha_si', {}, 'beta_si', {}, 'alpha_koni', {}, ...
+    'beta_koni', {}, 'alpha_koffi', {}, 'beta_koffi', {}, ...
+    'count_data_gammaln', {}, 'count_data_row_gammaln', {}, ...
+    'size_factor', {}, 'ln_size_factor', {}, 'ln_size_factor_sum', {}, 'count_ln_size_factor', {});
+A_param(1).size_factor = repmat(size_factor, num_gene, 1).*repmat(transcript_length, 1, num_replicate);
+A_param(1).alpha_si = ones(num_gene,1);
+A_param(1).beta_si = max(count_data./A_param.size_factor,[],2);       
+A_param(1).alpha_koni = ones(num_gene,1); 
+A_param(1).beta_koni = 100*ones(num_gene,1); 
+A_param(1).alpha_koffi = ones(num_gene,1); 
+A_param(1).beta_koffi = 100*ones(num_gene,1); 
+A_param(1).count_data_gammaln = sum(sum(gammaln(count_data+1)));
+A_param(1).count_data_row_gammaln = zeros(num_gene,1);
+A_param(1).ln_size_factor = log(A_param(1).size_factor);
+A_param(1).ln_size_factor_sum = sum(sum(count_data.*A_param.ln_size_factor));
+for ii=1:num_gene
+    A_param(1).count_data_row_gammaln(ii) = sum(gammaln(count_data(ii,:)+1));
+    A_param(1).count_ln_size_factor(ii) = sum(count_data(ii,:).*A_param(1).ln_size_factor(ii,:));
+end;
+%% Initialization for variational distributions
+
+C_param = struct('num_gene', {}, 'num_replicate', {}, 'Pij', {}, 'Si', {}, ...
+    'Koni', {}, 'Koffi', {}, 'lnSi', {}, 'lnoneminusPij', {}, 'lnPij', {}, 'lnKoni', {}, ...
+    'lnKoffi', {});
+C_param(1).num_gene = num_gene;
+C_param(1).num_replicate = num_replicate;
+C_param(1).Si = mean(mean(count_data./A_param.size_factor))*ones(num_gene,1);
+C_param(1).Koni = rand(num_gene, 1);
+C_param(1).Koffi = rand(num_gene, 1);
+mean_size_factor = mean(size_factor);
+for ii=1:num_gene
+    x = count_data(ii, :);
+    e1 = mean(x);
+    e2 = sum(x.*(x-1))/length(x);
+    e3 = sum(x.*(x-1).*(x-2))/length(x);    
+    r1 = e1; r2 = e2/e1; r3 = e3/e2;
+    kon_hat = 2*r1*(r3-r2)/(r1*r2-2*r1*r3+r2*r3);
+    koff_hat = 2*(r2-r1)*(r1-r3)*(r3-r2)/((r1*r2-2*r1*r3+r2*r3)*(r1-2*r2+r3));
+    s_hat = (-r1*r2+2*r1*r3-r2*r3)/(r1-2*r2+r3);
+    s_hat = s_hat/(transcript_length(1)*mean_size_factor);
+    if s_hat > 0 && kon_hat > 0 && koff_hat > 0
+        C_param(1).Si(ii) = s_hat;
+        C_param(1).Koni(ii) = kon_hat;
+        C_param(1).Koffi(ii) = koff_hat;
+    end;
+end;
+C_param(1).lnSi = log(C_param(1).Si);
+C_param(1).lnKoni = log(C_param(1).Koni);
+C_param(1).lnKoffi = log(C_param(1).Koffi);
+
+C_param(1).Pij = 0.5*ones(num_gene, num_replicate);
+C_param(1).lnPij = log(C_param(1).Pij);
+C_param(1).lnoneminusPij = log(1-C_param(1).Pij);
+
+
+
+
+
+// File: PoissonBetaUpdatePij.m
+function C_param = PoissonBetaUpdatePij(count_data, C_param, A_param)
+% PoissonBetaUpdatePij
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+for ii=1:C_param.num_gene
+    for jj=1:C_param.num_replicate
+        f = @(x) (C_param.Koffi(ii)-1).*log(x) + ...
+            (C_param.Koni(ii)-1).*log(1-x) + ...
+            log(1-x)*count_data(ii,jj) + ...
+            A_param.size_factor(ii,jj)*(C_param.Si(ii)*(x-1));
+        C_param.Pij(ii,jj) = PoissonBetaSliceSampleBeta(f, C_param.Pij(ii,jj), C_param.Pij(ii,jj)/2);
+    end;
+end;
+C_param(1).lnPij = log(C_param(1).Pij);
+C_param(1).lnoneminusPij = log(1-C_param(1).Pij);
+
+// File: PoissonBetaUpdateSi.m
+function C_param = PoissonBetaUpdateSi(sum_count, A_param, C_param)
+% PoissonBetaUpdateSi
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+for ii=1:C_param.num_gene
+    sum_Pij = sum(A_param.size_factor(ii,:).*(C_param.Pij(ii,:)-1));
+    sum_x = sum_count(ii);
+    f = @(x) -1*x./A_param.beta_si(ii) + (A_param.alpha_si(ii)-1).*log(x) + ...
+        sum_x*log(x) + x*sum_Pij;
+    C_param.Si(ii) = PoissonBetaSliceSampleGamma(f, C_param.Si(ii), C_param.Si(ii)/2);
+end;
+C_param(1).lnSi = log(C_param(1).Si);
+
+// File: concatenated_code.txt
+// File: README.txt
+Manual Reference Pages - PoissonBeta V1.0
+
+1. NAME
+
+	PoissonBeta - Program for inferring the kinetics of stochastic gene expression from single-cell RNA-seq data
+
+2. SYNOPSIS
+
+	>>fid_out = PoissonBetaRun('test.txt', 'result.txt', 10000)
+
+3. DESCRIPTION
+
+	PoissonBeta is a program for inferring the kinetics of stochastic gene expression from single-cell RNA-seq data.
+	It requires MATLAB with Statistics toolbox.
+
+4. COMMANDS AND OPTIONS
+	fid_out = PoissonBetaRun(input_file, output_file, Tmax)
+
+	OPTIONS:
+	input_file: input file name for single-cell RNA-seq data
+		INPUT FILE FORMAT (delimited by tab, please see 'test.txt' for an example)
+		COLUMN1: GENE NAME
+		COLUMN2: LENGTH OF TRANSCRIPT
+		COLUMN3-N: READ COUNT
+
+	output_file: output file name
+	Tmax: a maximum number of Gibbs sampling interations
+
+	OUTPUTS:
+	fid_out: file identifier of the output file. If failed, fid_out = -1
+		COLUMN1: GENE NAME
+		COLUMN2: posterior mean Si (not multiplied by transcript length and size factor)
+		COLUMN3: Koni
+		COLUMN4: Koffi
+		COLUMN5: SKoffi (not multiplied by transcript length and size factor)
+		COLUMN6: Exi (not multiplied by transcript length and size factor)
+		COLUMN7-M: Pij
+
+5. Precompiled version for Windows
+	FILES:
+	PoissonBetaRun.exe PoissonBetaRun.prj
+
+	INSTALL:
+	Download and install MCRInstaller.exe (version 7.11, 64bit) for MATLAB 2009b Windows.
+
+	Add the MCR directory to the environment variable by opening a command prompt and issuing the DOS command:
+
+	set PATH=<mcr_root>\v711\runtime\win64;%PATH% 
+
+	NOTE: <mcr_root> is the directory where MCR is installed on the target machine.         
+
+	USAGE:
+	>PoissonBetaRun test.txt result.txt 10000
+
+	
+
+// File: test.txt
+Gene	Length	Cell1	Cell2	Cell3	Cell4	Cell5	Cell6	Cell7	Cell8	Cell9	Cell10	Cell11	Cell12	
+NM_001001130	2218	59	1	2	19	16	0	0	0	2	5	0	17	
+NM_001001144	4286	541	53	183	127	81	98	46	53	68	75	19	178	
+NM_001001152	3488	2	0	0	0	0	1	0	0	16	0	0	0	
+NM_001001160	6562	3	0	203	0	0	0	0	0	0	0	0	0	
+NM_001001176	2374	1	3	322	39	23	0	0	0	0	0	1	0	
+NM_001001177	1898	1	0	0	0	0	1	0	1	0	0	1	1	
+NM_001001179	4480	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001180	3909	104	98	1	39	16	103	19	125	1	67	0	81	
+NM_001001181	1047	337	441	474	251	186	190	102	102	144	82	123	173	
+NM_001001182	7980	575	4	2	318	2	104	41	3	93	105	41	36	
+NM_001001183	1779	0	0	0	0	0	0	0	6	0	0	0	0	
+NM_001001184	3797	411	68	274	129	108	327	74	193	101	29	166	121	
+NM_001001185	581	245	303	234	116	84	75	50	89	41	58	112	104	
+NM_001001186	4079	151	1	101	0	2	42	1	0	2	0	2	58	
+NM_001001187	436	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001295	3255	212	402	9	23	0	125	4	72	40	39	426	153	
+NM_001001297	2327	233	34	52	39	2	134	39	55	64	10	0	44	
+NM_001001309	5782	0	0	0	0	1	4	0	0	0	0	43	0	
+NM_001001319	2399	0	0	0	1	0	0	0	0	0	0	1	0	
+NM_001001320	1778	0	0	0	0	0	1	0	0	0	0	0	0	
+NM_001001321	2276	2	84	2	2	2	198	31	0	98	29	124	5	
+NM_001001322	4580	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001326	4255	380	13	37	4	18	6	3	57	6	1	6	10	
+NM_001001327	1003	24	0	0	5	5	1	3	3	4	1	3	7	
+NM_001001332	387	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001333	2159	225	100	32	40	12	30	29	3	7	27	11	23	
+NM_001001334	1651	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001335	1838	0	96	0	0	0	0	9	17	0	0	12	1	
+NM_001001444	405	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001445	2520	0	0	0	0	1	0	0	0	0	0	0	0	
+NM_001001446	1916	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001447	2620	200	7	241	0	0	40	11	5	38	21	0	45	
+NM_001001449	889	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001450	927	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001451	996	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001452	882	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001453	960	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001454	3842	239	155	3	93	39	1	0	1	6	0	0	0	
+NM_001001488	6440	0	0	1	0	3	9	2	1	0	0	2	1	
+NM_001001489	2372	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001490	3732	1	0	0	0	2	1	0	0	0	0	0	1	
+NM_001001491	2082	335	140	123	110	6	32	38	37	131	19	28	115	
+NM_001001492	3170	1	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001493	699	21	53	25	16	19	12	13	24	27	15	5	30	
+NM_001001495	3769	1	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001496	1977	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001559	1638	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001565	3065	293	197	132	53	59	56	16	63	7	73	108	37	
+NM_001001566	2955	294	197	132	53	59	56	16	63	7	73	109	37	
+NM_001001602	6394	659	152	265	80	170	280	121	368	77	27	61	184	
+NM_001001650	949	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001714	1287	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001735	3630	13	29	4	86	3	32	7	47	10	19	0	44	
+NM_001001738	3766	1	0	0	0	0	0	0	0	20	0	0	0	
+NM_001001792	2813	20	79	849	27	39	24	5	193	31	57	44	57	
+NM_001001796	1550	0	0	0	0	0	0	0	0	0	0	0	1	
+NM_001001798	5942	326	209	348	1	2	2	40	3	57	1	1	79	
+NM_001001803	258	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001804	1258	0	0	0	43	11	0	0	1	41	0	0	0	
+NM_001001805	939	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001806	3532	294	118	14	83	36	182	35	163	39	33	32	98	
+NM_001001807	933	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001808	936	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001809	942	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001810	924	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001880	2250	660	400	756	435	220	113	112	300	252	123	20	402	
+NM_001001881	5162	1	0	0	0	0	0	0	0	0	0	0	0	
+NM_001001882	4378	1257	787	867	245	389	147	205	208	308	168	83	154	
+NM_001001883	11179	0	2	194	0	0	36	0	49	35	13	2	63	
+NM_001001884	4854	32	0	3	25	4	0	0	0	10	5	9	14	
+NM_001001885	3945	134	0	468	1	56	0	0	0	0	0	0	0	
+NM_001001892	1646	186	4	117	46	22	3	32	2	212	62	21	35	
+NM_001001932	7836	21	9	174	0	2	83	21	1	58	2	0	49	
+NM_001001979	7128	1	0	0	0	1	0	0	0	0	0	0	0	
+NM_001001980	6142	2	1	1	25	0	0	1	0	0	0	76	1	
+NM_001001981	3694	18	16	16	34	5	3	4	6	2	10	2	9	
+NM_001001982	4716	1	0	0	0	0	0	0	0	0	0	1	0	
+NM_001001983	6431	435	609	293	81	128	77	62	57	37	102	75	46	
+NM_001001984	7265	409	404	460	64	99	81	32	152	51	31	7	26	
+NM_001001985	6529	84	0	0	20	81	0	0	1	44	1	0	46	
+NM_001001986	5614	5	1	1	11	1	10	0	0	24	1	0	0	
+NM_001001999	2085	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001002004	7439	224	337	182	218	69	169	56	199	140	121	54	127	
+NM_001002005	3412	0	1	0	0	0	0	0	0	1	0	0	0	
+NM_001002008	2597	21	47	142	56	45	47	31	104	12	1	81	144	
+NM_001002011	3152	42	311	53	34	50	312	31	5	11	6	3	18	
+NM_001002012	2522	1	0	4	45	0	55	0	107	39	0	0	0	
+NM_001002238	4914	0	0	0	126	0	70	0	1	0	0	23	0	
+NM_001002239	775	11	11	19	6	1	5	4	11	5	2	1	4	
+NM_001002240	4887	0	0	0	126	0	70	0	1	0	0	23	0	
+NM_001002241	5187	0	0	0	126	0	70	0	1	0	0	23	0	
+NM_001002267	1733	1	2	1	0	40	4	0	0	0	0	0	0	
+NM_001002268	6505	6	0	2	0	0	54	0	0	0	0	0	0	
+NM_001002272	6611	144	131	157	58	125	2	35	86	116	93	1	70	
+NM_001002764	5799	141	6	122	122	13	126	38	61	87	92	62	156	
+NM_001002786	4105	0	0	0	0	0	0	1	1	0	1	0	0	
+NM_001002787	2030	0	0	0	0	0	2	0	0	0	0	0	0	
+NM_001002791	625	0	0	0	0	0	0	0	0	0	0	0	0	
+NM_001002842	2272	0	0	3	0	0	0	0	0	0	0	0	0	
+NM_001002846	2058	187	5	179	7	1	140	21	1	87	30	48	1	
+
+
+// File: PoissonBetaSizeFactor.m
+function size_factor = PoissonBetaSizeFactor(read_count)
+% PoissonBetaSizeFactor
+% 
+% by Jong Kyoung Kim
+% Last update: 17 October 2011
+
+[temp,n] = size(read_count);
+nonzero_gene = (sum(log(read_count),2)~=-Inf);
+normalized_read_count = read_count(nonzero_gene,:);
+normalized_read_count = normalized_read_count./repmat(geomean(normalized_read_count,2), 1, n);
+size_factor = zeros(1,n);
+for ii=1:n
+    size_factor(ii) = median(normalized_read_count(normalized_read_count(:,ii)~=0,ii));
+end;
+
+
+// File: PoissonBetaLogPosterior.m
+function Q = PoissonBetaLogPosterior(count_data, A_param, C_param)
+% PoissonBetaLogPosterior
+% 
+% Input: 
+% 1. sum_count: sum(count_data,2)
+% 2. A_param: hyperparameters
+% 3. C_param: variational parameters
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+% log p(X|Z,p, s)
+Q = sum(sum(count_data.*(repmat(C_param.lnSi, 1, C_param.num_replicate) + ...
+    C_param.lnoneminusPij))) + A_param(1).ln_size_factor_sum + ...
+    sum(sum(A_param.size_factor.*(repmat(C_param.Si, 1, C_param.num_replicate).*(C_param.Pij-1)))) - ...
+    A_param.count_data_gammaln;
+
+% log p(p|k_off, k_on)
+Q = Q + sum(sum(gammaln(repmat(C_param.Koni + C_param.Koffi, 1, C_param.num_replicate)) - ...
+    gammaln(repmat(C_param.Koni, 1, C_param.num_replicate)) - gammaln(repmat(C_param.Koffi, 1, C_param.num_replicate)) + ...
+    repmat(C_param.Koffi-1, 1, C_param.num_replicate).*C_param.lnPij + ...
+    repmat(C_param.Koni-1, 1, C_param.num_replicate).*C_param.lnoneminusPij));
+
+% log p(s)
+Q = Q + sum(-1*C_param.Si./A_param.beta_si + (A_param.alpha_si-1).*C_param.lnSi - ...
+    A_param.alpha_si.*log(A_param.beta_si) - gammaln(A_param.alpha_si));
+
+% log p(kon)
+Q = Q + sum(-1*C_param.Koni./A_param.beta_koni + (A_param.alpha_koni-1).*C_param.lnKoni - ...
+    A_param.alpha_koni.*log(A_param.beta_koni) - gammaln(A_param.alpha_koni));
+
+% log p(koff)
+Q = Q + sum(-1*C_param.Koffi./A_param.beta_koffi + (A_param.alpha_koffi-1).*C_param.lnKoffi - ...
+    A_param.alpha_koffi.*log(A_param.beta_koffi) - gammaln(A_param.alpha_koffi));
+
+// File: PoissonBetaUpdatePij_C.mexw64
+// File: PoissonBetaUpdateKoffi_C.c
+/* PoissonBetaUpdateKoffi_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define CPARAMIN prhs[1]
+#define APARAMIN prhs[0]
+#define CPARAMOUT_KOFFI plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *alpha_koff, *beta_koff, *lnPij;
+    double *mdouble;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 2) {
+      mexErrMsgTxt("2 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));     
+    
+    cparam->Koni = mxGetPr(mxGetField(CPARAMIN,0,"Koni"));
+        
+    /* Read Koffi */
+    cparam->Koffi = mxMalloc(sizeof(double)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Koffi"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Koffi[ii] = mdouble[ii];  
+    }         
+    
+    /* Read lnPij */
+    lnPij = mxGetPr(mxGetField(CPARAMIN,0,"lnPij"));
+    
+    /* Read APARAMIN */
+    alpha_koff = mxGetPr(mxGetField(APARAMIN,0,"alpha_koffi"));
+    beta_koff = mxGetPr(mxGetField(APARAMIN,0,"beta_koffi"));
+    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        xx = cparam->Koffi[ii];
+        widths = cparam->Koffi[ii]/2.0;
+        log_Px = logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, xx);
+        log_uprime = log(my_rand()) + log_Px;
+        xprime = xx;
+        rr = my_rand();
+        x_l = xx - rr*widths;
+        x_r = xx + (1-rr)*widths;
+        J = (int)floor(my_rand()*MAXSTEPSIZE);
+        K = MAXSTEPSIZE-1-J;
+        while (logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, x_l) > log_uprime && x_l - widths >= 0.0 && J > 0) {
+            x_l = x_l - widths;
+            J = J - 1;
+        }
+        while (logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, x_r) > log_uprime && K > 0) {
+            x_r = x_r + widths;
+            K = K - 1;
+        }
+        while (1) {
+            xprime = my_rand()*(x_r - x_l) + x_l;
+            log_Px = logpgammakoff(alpha_koff[ii], beta_koff[ii], cparam->Koni[ii], lnPij, cparam->num_gene, cparam->num_replicate, ii, xprime);
+            if (log_Px > log_uprime) {
+                break;
+            }
+            else {
+                if (xprime > xx) {
+                    x_r = xprime;
+                }
+                else if (xprime < xx) {
+                    x_l = xprime;
+                }
+                else {
+                    break;
+                    /*mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");*/
+                }
+            }
+        }
+        cparam->Koffi[ii] = xprime;
+    } 
+    /* Write Koffi */
+    CPARAMOUT_KOFFI = mxCreateDoubleMatrix(cparam->num_gene, 1, mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_KOFFI);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mdouble[ii] = cparam->Koffi[ii];
+    }
+    mxFree(cparam->Koffi);
+    
+    mxFree(cparam);
+}
+
+// File: PoissonBetaRun.m
+function fid_out = PoissonBetaRun(input_file, output_file, Tmax)
+
+% PoissonBeta
+% 
+% Input: 
+% 1. input_file: input file for count data
+% 2. output_file: output file for results
+% 3. Tmax: a maximum number of Gibbs sampling interations
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 26 December 2012
+
+read_count = importdata(input_file, '\t', 1);
+transcript_length = read_count.data(:,1);
+gene_id = read_count.textdata(2:end,1);
+read_count = read_count.data(:, 2:end);
+
+if ischar(Tmax)
+    Tmax = str2double(Tmax);
+end;
+
+[num_gene, num_cell] = size(read_count);
+
+expressed_index = (sum(read_count,2)~=0);
+read_count_expressed = read_count(expressed_index,:);
+
+size_factor = PoissonBetaSizeFactor(read_count_expressed);
+
+[samples_Pij, samples_Si, samples_Koni, samples_Koffi, Qiter] = ...
+    PoissonBeta(read_count_expressed, size_factor, transcript_length(expressed_index), Tmax);
+
+mean_Si = mean(samples_Si, 2);
+mean_Koni = mean(samples_Koni, 2);
+mean_Koffi = mean(samples_Koffi, 2);
+mean_Pij = 1-samples_Pij;
+mean_SKoffi = mean(samples_Si./samples_Koffi,2);
+mean_Exi = mean(samples_Si.*(samples_Koni./(samples_Koffi+samples_Koni)),2);
+
+fid_out = fopen(output_file, 'w');
+fprintf(fid_out, '%s\t%s\t%s\t%s\t%s\t%s\t', 'Gene', 'Si', 'Koni', 'Koffi', 'SKoffi', 'Exi');
+for jj=1:num_cell
+    fprintf(fid_out, '%s\t', strcat('Pij', '(Cell', num2str(jj),')'));
+end;
+fprintf(fid_out, '\n');
+count = 1;
+for ii=1:num_gene
+    fprintf(fid_out, '%s\t', gene_id{ii});
+    if expressed_index(ii) == 1
+        fprintf(fid_out, '%f\t%f\t%f\t%f\t%f\t', mean_Si(count), mean_Koni(count), ...
+            mean_Koffi(count), mean_SKoffi(count), mean_Exi(count));
+        for jj=1:num_cell
+            fprintf(fid_out, '%f\t', mean_Pij(count,jj));
+        end;
+        count = count + 1;
+    else
+        fprintf(fid_out, '%f\t%f\t%f\t%f\t%f\t', 0, 0, ...
+            0, 0, 0);
+        for jj=1:num_cell
+            fprintf(fid_out, '%f\t', 0);
+        end;  
+    end;
+    fprintf(fid_out, '\n');
+end;
+fclose(fid_out);
+
+// File: PoissonBetaRun.exe
+// File: PoissonBetaUpdateKoffi_C.mexw64
+// File: PoissonBetaUpdatePij_C.c
+/* PoissonBetaUpdatePij_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: September 24 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define COUNTDATA prhs[0]
+#define CPARAMIN prhs[1]
+#define APARAMIN prhs[2]
+#define CPARAMOUT_PIJ plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *count_data, *size_factor;
+    double *mdouble;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 3) {
+      mexErrMsgTxt("3 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));      
+    cparam->Si = mxGetPr(mxGetField(CPARAMIN,0,"Si"));
+    cparam->Koni = mxGetPr(mxGetField(CPARAMIN,0,"Koni"));
+    cparam->Koffi = mxGetPr(mxGetField(CPARAMIN,0,"Koffi"));
+        
+    /* Read Pij */
+    cparam->Pij = mxMalloc(sizeof(double*)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Pij"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Pij[ii] = mxMalloc(sizeof(double)*cparam->num_replicate);
+        for (jj = 0; jj < cparam->num_replicate; jj++) {
+            cparam->Pij[ii][jj] = mdouble[jj*cparam->num_gene+ii];
+        }
+    }          
+
+    /* Read COUNTDATA */ 
+    count_data = mxGetPr(COUNTDATA);
+    
+    /* Read APARAMIN */
+    size_factor = mxGetPr(mxGetField(APARAMIN,0,"size_factor"));
+    
+    /*init_genrand64((unsigned long)time(NULL));*/
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        for (jj = 0; jj < cparam->num_replicate; jj++) {
+            xx = cparam->Pij[ii][jj];                
+            widths = xx/2.0;
+            log_Px = logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], xx);
+            log_uprime = log(my_rand()) + log_Px;
+            xprime = xx;
+            rr = my_rand();
+            x_l = xx - rr*widths;
+            x_r = xx + (1.0-rr)*widths;
+            J = (int)floor(my_rand()*MAXSTEPSIZE);
+            K = MAXSTEPSIZE-1-J; 
+            while ((logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], x_l) > log_uprime) && (x_l - widths >= 0.0) && J > 0) {
+                x_l = x_l - widths;
+                J = J - 1;
+            }
+            while ((logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], x_r) > log_uprime) && (x_r + widths <= 1.0) && K > 0) {
+                x_r = x_r + widths;
+                K = K - 1;
+            }
+            if (x_l < 0) {
+                x_l = 0.0;
+            }
+            if (x_r > 1.0) {
+                x_r = 1.0;
+            }
+            while (1) {
+                xprime = my_rand()*(x_r - x_l) + x_l;
+                log_Px = logpbeta(cparam->Koni[ii], cparam->Koffi[ii], count_data[jj*cparam->num_gene+ii], size_factor[jj*cparam->num_gene+ii], cparam->Si[ii], xprime);
+                if (log_Px > log_uprime) {
+                    break;
+                }
+                else {
+                    if (xprime > xx) {
+                        x_r = xprime;
+                    }
+                    else if (xprime < xx) {
+                        x_l = xprime;
+                    }
+                    else {
+                        break;
+                        /*mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");*/
+                    }
+                }
+            }
+            cparam->Pij[ii][jj] = xprime;
+        }
+    } 
+    /* Write Pij */
+    CPARAMOUT_PIJ = mxCreateDoubleMatrix(cparam->num_gene,cparam->num_replicate,mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_PIJ);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        for (jj = 0; jj < cparam->num_replicate; jj++) {
+            mdouble[jj*cparam->num_gene+ii] = cparam->Pij[ii][jj];
+        }
+    }    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mxFree(cparam->Pij[ii]);                
+    }   
+    mxFree(cparam->Pij);
+    mxFree(cparam);
+}
+
+
+// File: PoissonBetaCparam.c
+/*% PoissonBetaCparam.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+/* 
+   A C-program for MT19937-64 (2004/9/29 version).
+   Coded by Takuji Nishimura and Makoto Matsumoto.
+
+   This is a 64-bit version of Mersenne Twister pseudorandom number
+   generator.
+
+   Before using, initialize the state by using init_genrand64(seed)  
+   or init_by_array64(init_key, key_length).
+
+   Copyright (C) 2004, Makoto Matsumoto and Takuji Nishimura,
+   All rights reserved.                          
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+     1. Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+
+     2. Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+
+     3. The names of its contributors may not be used to endorse or promote 
+        products derived from this software without specific prior written 
+        permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+   References:
+   T. Nishimura, ``Tables of 64-bit Mersenne Twisters''
+     ACM Transactions on Modeling and 
+     Computer Simulation 10. (2000) 348--357.
+   M. Matsumoto and T. Nishimura,
+     ``Mersenne Twister: a 623-dimensionally equidistributed
+       uniform pseudorandom number generator''
+     ACM Transactions on Modeling and 
+     Computer Simulation 8. (Jan. 1998) 3--30.
+
+   Any feedback is very welcome.
+   http://www.math.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+   email: m-mat @ math.sci.hiroshima-u.ac.jp (remove spaces)
+*/
+
+#ifndef _Cparam
+#define _Cparam
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+#define NN 312
+#define MM 156
+#define MATRIX_A 0xB5026F5AA96619E9ULL
+#define UM 0xFFFFFFFF80000000ULL /* Most significant 33 bits */
+#define LM 0x7FFFFFFFULL /* Least significant 31 bits */
+#define M_lnSqrt2PI 0.91893853320467274178
+
+
+/* The array for the state vector */
+static unsigned long long mt[NN]; 
+/* mti==NN+1 means mt[NN] is not initialized */
+static int mti=NN+1; 
+
+typedef struct _tagCparam {
+    int num_gene, num_replicate;
+    double *Koni, *Koffi, *Si;
+    double **Pij;
+} Cparam;
+
+/* initializes mt[NN] with a seed */
+void init_genrand64(unsigned long long seed)
+{
+    mt[0] = seed;
+    for (mti=1; mti<NN; mti++) 
+        mt[mti] =  (6364136223846793005ULL * (mt[mti-1] ^ (mt[mti-1] >> 62)) + mti);
+}
+
+/* generates a random number on [0, 2^64-1]-interval */
+unsigned long long genrand64_int64(void)
+{
+    int i;
+    unsigned long long x;
+    static unsigned long long mag01[2]={0ULL, MATRIX_A};
+
+    if (mti >= NN) { /* generate NN words at one time */
+
+        /* if init_genrand64() has not been called, */
+        /* a default initial seed is used     */
+        if (mti == NN+1) 
+            init_genrand64(5489ULL); 
+
+        for (i=0;i<NN-MM;i++) {
+            x = (mt[i]&UM)|(mt[i+1]&LM);
+            mt[i] = mt[i+MM] ^ (x>>1) ^ mag01[(int)(x&1ULL)];
+        }
+        for (;i<NN-1;i++) {
+            x = (mt[i]&UM)|(mt[i+1]&LM);
+            mt[i] = mt[i+(MM-NN)] ^ (x>>1) ^ mag01[(int)(x&1ULL)];
+        }
+        x = (mt[NN-1]&UM)|(mt[0]&LM);
+        mt[NN-1] = mt[MM-1] ^ (x>>1) ^ mag01[(int)(x&1ULL)];
+
+        mti = 0;
+    }
+  
+    x = mt[mti++];
+
+    x ^= (x >> 29) & 0x5555555555555555ULL;
+    x ^= (x << 17) & 0x71D67FFFEDA60000ULL;
+    x ^= (x << 37) & 0xFFF7EEE000000000ULL;
+    x ^= (x >> 43);
+
+    return x;
+}
+
+double loggamma(double x) {
+    static double gamma_series[] = {
+        76.18009172947146,
+        -86.50532032941677,
+        24.01409824083091,
+        -1.231739572450155,
+        0.1208650973866179e-2,
+        -0.5395239384953e-5
+    };
+    int i;
+    double denom, x1, series;
+
+    /* Lanczos method */
+    denom = x+1;
+    x1 = x + 5.5;
+    series = 1.000000000190015;
+    for(i = 0; i < 6; i++) {
+        series += gamma_series[i] / denom;
+        denom += 1.0;
+    }
+    return( M_lnSqrt2PI + (x+0.5)*log(x1) - x1 + log(series/x) );
+}
+
+/* generates a random number on (0,1)-real-interval */
+double my_rand(void)
+{
+    return ((genrand64_int64() >> 12) + 0.5) * (1.0/4503599627370496.0);
+    /* divided by 2^32 */
+}
+
+double logpbeta(double Kon, double Koff, double count_data, double size_factor, double S, double x) {
+    double log_Px;    
+    
+    log_Px = (Koff-1.0)*log(x) + (Kon-1.0)*log(1.0-x) + log(1.0-x)*count_data + size_factor*(S*(x-1.0));
+    return log_Px;
+}
+
+double logpgammakoff(double alpha_koff, double beta_koff, double Kon, double *lnPij, int num_gene, int num_replicate, int ii, double x) {
+    double log_Px, sum_Pij=0.0;
+    int jj;
+    
+    for (jj=0; jj < num_replicate; jj++) {
+        sum_Pij = sum_Pij + lnPij[jj*num_gene+ii];
+    }     
+    log_Px = -1.0*x/beta_koff + (alpha_koff-1.0)*log(x) + (double)(num_replicate*(loggamma(x+Kon) - loggamma(x))) + (x-1.0)*sum_Pij;
+    return log_Px;
+}
+
+double logpgammakon(double alpha_kon, double beta_kon, double Koff, double *lnoneminusPij, int num_gene, int num_replicate, int ii, double x) {
+    double log_Px, sum_Pij=0.0;
+    int jj;
+    
+    for (jj=0; jj < num_replicate; jj++) {
+        sum_Pij = sum_Pij + lnoneminusPij[jj*num_gene+ii];
+    }    
+    log_Px = -1.0*x/beta_kon + (alpha_kon-1.0)*log(x) + (double)(num_replicate*(loggamma(x+Koff) - loggamma(x))) + (x-1.0)*sum_Pij;
+    return log_Px;
+}
+
+double logpgammas(double alpha_s, double beta_s, double *size_factor, double *Pij, double sum_count, int num_gene, int num_replicate, int ii, double x) {
+    double log_Px, sum_Pij=0.0;
+    int jj;
+    
+    for (jj=0; jj < num_replicate; jj++) {
+        sum_Pij = sum_Pij + size_factor[jj*num_gene+ii]*(Pij[jj*num_gene+ii]-1.0);
+    }
+    log_Px = -1.0*x/beta_s + (alpha_s-1.0)*log(x) + sum_count*log(x) + x*sum_Pij;
+    return log_Px;
+}
+        
+#endif
+
+// File: PoissonBetaUpdateKoni_C.mexw64
+// File: PoissonBeta.m
+function [samples_Pij, samples_Si, samples_Koni, samples_Koffi, Qiter] = ...
+    PoissonBeta(count_data, size_factor, transcript_length, Tmax)
+% PoissonBeta
+% 
+% Input: 
+% 1. count_data: count data
+% 2. size_factor
+% 3. transcript_length
+% 4. Tmax: a maximum number of Gibbs sampling interations
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 10 July 2012
+
+RandStream.setDefaultStream ...
+     (RandStream('mt19937ar','seed',sum(100*clock)));
+
+burnin = round(Tmax/2);
+
+[num_gene, num_replicate] = size(count_data);
+sum_count = sum(count_data, 2);
+
+%% Initialization for hyperparameters
+[C_param, A_param] = PoissonBetaInit(count_data, size_factor, transcript_length, num_gene, num_replicate);
+
+%% Gibbs sampling
+Qiter = zeros(Tmax,1);
+samples_Pij = zeros(C_param.num_gene, C_param.num_replicate);
+samples_Si = zeros(C_param.num_gene, Tmax - burnin);
+samples_Koni = zeros(C_param.num_gene, Tmax - burnin);
+samples_Koffi = zeros(C_param.num_gene, Tmax - burnin);
+for t=1:Tmax
+    fprintf('%s\n', 'Update Pij');
+%     C_param = PoissonBetaUpdatePij(count_data, C_param, A_param);
+    C_param.Pij = PoissonBetaUpdatePij_C(count_data, C_param, A_param);
+    C_param.lnPij = log(C_param.Pij);
+    C_param.lnoneminusPij = log(1-C_param.Pij);
+    fprintf('%s\n', 'Update Si');
+%     C_param = PoissonBetaUpdateSi(sum_count, A_param, C_param);
+    C_param.Si = PoissonBetaUpdateSi_C(sum_count, A_param, C_param);
+    C_param.lnSi = log(C_param.Si);
+    fprintf('%s\n', 'Update Koni');
+%     C_param = PoissonBetaUpdateKoni(A_param, C_param);
+    C_param.Koni = PoissonBetaUpdateKoni_C(A_param, C_param);
+    C_param.lnKoni = log(C_param.Koni);
+    fprintf('%s\n', 'Update Koffi');
+%     C_param = PoissonBetaUpdateKoffi(A_param, C_param);   
+    C_param.Koffi = PoissonBetaUpdateKoffi_C(A_param, C_param);  
+    C_param.lnKoffi = log(C_param.Koffi);
+    Qiter(t) = PoissonBetaLogPosterior(count_data, A_param, C_param);
+    fprintf('%s\t%d\t%d\n', 'PoissonBeta Gibbs Sampling Iteration', t, Qiter(t));
+    if t > burnin
+        samples_Pij = samples_Pij + C_param.Pij;
+        samples_Si(:, t-burnin) = C_param.Si;
+        samples_Koni(:, t-burnin) = C_param.Koni;
+        samples_Koffi(:, t-burnin) = C_param.Koffi;
+    end;
+end;
+samples_Pij = samples_Pij/(Tmax-burnin);
+
+// File: PoissonBetaUpdateSi_C.c
+/* PoissonBetaUpdateSi_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define CPARAMIN prhs[2]
+#define APARAMIN prhs[1]
+#define SUM_COUNT prhs[0]
+#define CPARAMOUT_SI plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *alpha_s, *beta_s, *size_factor, *sum_count, *Pij;
+    double *mdouble;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 3) {
+      mexErrMsgTxt("3 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));     
+        
+    /* Read Si */
+    cparam->Si = mxMalloc(sizeof(double)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Si"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Si[ii] = mdouble[ii];  
+    }         
+    
+    /* Read Pij */
+    Pij = mxGetPr(mxGetField(CPARAMIN,0,"Pij"));
+    
+    /* Read sum_count */
+    sum_count = mxGetPr(SUM_COUNT);
+    
+    /* Read APARAMIN */
+    size_factor = mxGetPr(mxGetField(APARAMIN,0,"size_factor"));
+    alpha_s = mxGetPr(mxGetField(APARAMIN,0,"alpha_si"));
+    beta_s = mxGetPr(mxGetField(APARAMIN,0,"beta_si"));
+    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        xx = cparam->Si[ii];
+        widths = cparam->Si[ii]/2.0;
+        log_Px = logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, xx);
+        log_uprime = log(my_rand()) + log_Px;
+        xprime = xx;
+        rr = my_rand();
+        x_l = xx - rr*widths;
+        x_r = xx + (1-rr)*widths;
+        J = (int)floor(my_rand()*MAXSTEPSIZE);
+        K = MAXSTEPSIZE-1-J;
+        while (logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, x_l) > log_uprime && x_l - widths >= 0.0 && J > 0) {
+            x_l = x_l - widths;
+            J = J - 1;
+        }
+        while (logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, x_r) > log_uprime && K > 0) {
+            x_r = x_r + widths;
+            K = K - 1;
+        }
+        while (1) {
+            xprime = my_rand()*(x_r - x_l) + x_l;
+            log_Px = logpgammas(alpha_s[ii], beta_s[ii], size_factor, Pij, sum_count[ii], cparam->num_gene, cparam->num_replicate, ii, xprime);
+            if (log_Px > log_uprime) {
+                break;
+            }
+            else {
+                if (xprime > xx) {
+                    x_r = xprime;
+                }
+                else if (xprime < xx) {
+                    x_l = xprime;
+                }
+                else {
+                    mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");
+                }
+            }
+        }
+        cparam->Si[ii] = xprime;
+    } 
+    /* Write Si */
+    CPARAMOUT_SI = mxCreateDoubleMatrix(cparam->num_gene, 1, mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_SI);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mdouble[ii] = cparam->Si[ii];
+    }
+    mxFree(cparam->Si);
+    
+    mxFree(cparam);
+}
+
+// File: PoissonBetaUpdateKoni.m
+function C_param = PoissonBetaUpdateKoni(A_param, C_param)
+% PoissonBetaUpdateKoni
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+for ii=1:C_param.num_gene
+    f = @(x) -1*x./A_param.beta_koni(ii) + (A_param.alpha_koni(ii)-1).*log(x) + ...
+        sum(gammaln(x + C_param.Koffi(ii)) - gammaln(x) + (x-1)*C_param.lnoneminusPij(ii,:));
+    C_param.Koni(ii) = PoissonBetaSliceSampleGamma(f, C_param.Koni(ii), C_param.Koni(ii)/2);
+end;
+C_param(1).lnKoni = log(C_param(1).Koni);
+
+// File: concatenate.py
+import os
+
+# Set the directory path
+directory = "."
+
+# Set the output file name
+output_file = "concatenated_code.txt"
+
+# Get a list of all files in the directory
+files = os.listdir(directory)
+
+# Open the output file in write mode
+with open(output_file, "w", encoding="utf-8") as output:
+    # Iterate over each file in the directory
+    for file in files:
+        # Get the full file path
+        file_path = os.path.join(directory, file)
+        
+        # Check if the file is a regular file (not a directory)
+        if os.path.isfile(file_path):
+            try:
+                # Open the file in read mode with UTF-8 encoding
+                with open(file_path, "r", encoding="utf-8") as f:
+                    # Write the file name as a comment
+                    output.write(f"// File: {file}\n")
+                    
+                    # Write the file content
+                    output.write(f.read())
+                    
+                    # Add a newline separator
+                    output.write("\n\n")
+            except UnicodeDecodeError:
+                print(f"Skipping file '{file}' due to encoding error.")
+
+print("Concatenation complete. Output file:", output_file)
+
+
+
+// File: main_poissonbeta_esc.m
+% main_poissonbeta.m
+% PoissonBeta: a Poisson-Beta model for RNA-Seq data analysis
+%
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: October 29 2011
+
+clc; clear;
+dir_data = 'C:\research\project\TangCellStemCell\data';
+dir_poissonbeta = 'C:\research\research_program\PoissonBeta\source\PoissonBeta_Gene';
+
+% read data
+cd(dir_data);
+[num, ~, raw] = xlsread('mmc3');
+[num_row, num_column] = size(raw);
+
+% select ESC
+esc_index = zeros(num_column-1,1);
+for ii=1:num_column
+    if ~isempty(strfind(raw{1, ii}, 'ESC_A'))
+        esc_index(ii-1) = 1;
+    end;
+end;
+
+transcript_length = num(:, 6);
+read_count = num(:, logical(esc_index));
+read_count(:,13) = []; % remove a technical replicate
+
+cd(dir_poissonbeta);
+size_factor = PoissonBetaSizeFactor(read_count);
+
+% select expressed genes
+
+expressed_index = (sum(read_count,2)~=0);
+read_count = read_count(expressed_index,:);
+transcript_length = transcript_length(expressed_index);
+gene_id = raw(2:end,1);
+gene_id = gene_id(expressed_index);
+
+cd(dir_poissonbeta);
+Tmax = 1000;
+clear num; clear raw;
+[samples_Pij, samples_Si, samples_Koni, samples_Koffi, Qiter] = ...
+    PoissonBeta(read_count, size_factor, transcript_length, Tmax);
+
+cd(dir_data)
+save mESC_genewise_T10000 samples_Pij samples_Si samples_Koni samples_Koffi Qiter ...
+    read_count size_factor transcript_length gene_id;
+
+
+// File: PoissonBetaSliceSampleGamma.m
+function samples = PoissonBetaSliceSampleGamma(logdist, xx, widths)
+% SliceSampleGamma
+% 
+% By Jong Kyoung Kim 
+% Modified from slice_sample.m by Iain Murray May 2004
+% jkkim@ebi.ac.uk
+% Last Update: August 31 2011
+
+maxStepSize = 1000;
+
+log_Px = feval(logdist, xx);
+
+log_uprime = log(rand) + log_Px;
+
+xprime = xx;
+
+% Create a horizontal interval (x_l, x_r) enclosing xx
+rr = rand;
+x_l = xx - rr*widths;
+x_r = xx + (1-rr)*widths;
+J = floor(rand*maxStepSize);
+K = maxStepSize-1-J;
+while (feval(logdist, x_l) > log_uprime) && x_l - widths >=0 && J > 0
+    x_l = x_l - widths;
+    J = J - 1;
+end;
+while (feval(logdist, x_r) > log_uprime) && K > 0
+    x_r = x_r + widths;
+    K = K - 1;
+end;
+
+% Propose xprimes and shrink interval until good one found
+zz = 0;
+while 1
+    zz = zz + 1;
+    %fprintf('Step %d       \r', zz);
+    xprime = rand*(x_r - x_l) + x_l;
+    log_Px = feval(logdist, xprime);
+    if log_Px > log_uprime
+        break % this is the only way to leave the while loop
+    else
+        % Shrink in
+        if xprime > xx
+            x_r = xprime;
+        elseif xprime < xx
+            x_l = xprime;
+        else
+            error('BUG DETECTED: Shrunk to current position and still not acceptable.');
+        end;
+    end;
+end;
+samples = xprime;
+
+// File: PoissonBetaUpdateKoni_C.c
+/* PoissonBetaUpdateKoni_C.c
+*
+* By Jong Kyoung Kim 
+* jkkim@ebi.ac.uk
+* Last Update: July 10 2012
+*/
+
+#include "mex.h"
+#include "PoissonBetaCparam.c"
+
+#define CPARAMIN prhs[1]
+#define APARAMIN prhs[0]
+#define CPARAMOUT_KONI plhs[0]
+#define MAXSTEPSIZE 1000
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs,
+                 const mxArray *prhs[])
+{
+    Cparam *cparam;
+    int ii, jj, J, K;
+    double log_Px, xx, xprime, widths, log_uprime, rr, x_l, x_r;
+    double *alpha_kon, *beta_kon;
+    double *mdouble, *lnoneminusPij;
+        
+    /* Check for proper number of arguments. */
+    if (nrhs != 2) {
+      mexErrMsgTxt("2 inputs required.");
+    } else if (nlhs != 1) {
+      mexErrMsgTxt("1 output required");      
+    }
+    
+    /* Read CPARAMIN */ 
+    cparam = mxMalloc(sizeof(Cparam));
+    
+    cparam->num_gene = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_gene"));
+    cparam->num_replicate = (int)mxGetScalar(mxGetField(CPARAMIN,0,"num_replicate"));     
+    
+    cparam->Koffi = mxGetPr(mxGetField(CPARAMIN,0,"Koffi"));
+        
+    /* Read Koni */
+    cparam->Koni = mxMalloc(sizeof(double)*cparam->num_gene);
+    mdouble = mxGetPr(mxGetField(CPARAMIN,0,"Koni"));
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        cparam->Koni[ii] = mdouble[ii];  
+    }         
+    
+    /* Read lnoneminusPij */
+    lnoneminusPij = mxGetPr(mxGetField(CPARAMIN,0,"lnoneminusPij"));
+
+    /* Read APARAMIN */
+    alpha_kon = mxGetPr(mxGetField(APARAMIN,0,"alpha_koni"));
+    beta_kon = mxGetPr(mxGetField(APARAMIN,0,"beta_koni"));
+    
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        xx = cparam->Koni[ii];
+        widths = cparam->Koni[ii]/2.0;
+        log_Px = logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, xx);
+        log_uprime = log(my_rand()) + log_Px;
+        xprime = xx;
+        rr = my_rand();
+        x_l = xx - rr*widths;
+        x_r = xx + (1-rr)*widths;
+        J = (int)floor(my_rand()*MAXSTEPSIZE);
+        K = MAXSTEPSIZE-1-J;
+        while (logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, x_l) > log_uprime && x_l - widths >= 0.0 && J > 0) {
+            x_l = x_l - widths;
+            J = J - 1;
+        }
+        while (logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, x_r) > log_uprime && K > 0) {
+            x_r = x_r + widths;
+            K = K - 1;
+        }
+        while (1) {
+            xprime = my_rand()*(x_r - x_l) + x_l;
+            log_Px = logpgammakon(alpha_kon[ii], beta_kon[ii], cparam->Koffi[ii], lnoneminusPij, cparam->num_gene, cparam->num_replicate, ii, xprime);
+            if (log_Px > log_uprime) {
+                break;
+            }
+            else {
+                if (xprime > xx) {
+                    x_r = xprime;
+                }
+                else if (xprime < xx) {
+                    x_l = xprime;
+                }
+                else {
+                    break;
+                    /*mexErrMsgTxt("BUG DETECTED: Shrunk to current position and still not acceptable.");*/
+                }
+            }
+        }
+        cparam->Koni[ii] = xprime;
+    } 
+    /* Write Koni */
+    CPARAMOUT_KONI = mxCreateDoubleMatrix(cparam->num_gene, 1, mxREAL);
+    mdouble = mxGetPr(CPARAMOUT_KONI);
+    for (ii = 0; ii < cparam->num_gene; ii++) {
+        mdouble[ii] = cparam->Koni[ii];
+    }
+    mxFree(cparam->Koni);
+    
+    mxFree(cparam);
+}
+
+// File: PoissonBetaSliceSampleBeta.m
+function samples = PoissonBetaSliceSampleBeta(logdist, xx, widths)
+% SliceSampleBeta
+% 
+% By Jong Kyoung Kim 
+% Modified from slice_sample.m by Iain Murray May 2004
+% jkkim@ebi.ac.uk
+% Last Update: August 31 2011
+
+maxStepSize = 1000;
+
+log_Px = feval(logdist, xx);
+
+log_uprime = log(rand) + log_Px;
+
+xprime = xx;
+
+% Create a horizontal interval (x_l, x_r) enclosing xx
+rr = rand;
+x_l = xx - rr*widths;
+x_r = xx + (1-rr)*widths;
+J = floor(rand*maxStepSize);
+K = maxStepSize-1-J;
+while (feval(logdist, x_l) > log_uprime) && x_l - widths >=0 && J > 0
+    x_l = x_l - widths;
+    J = J - 1;
+end;
+while (feval(logdist, x_r) > log_uprime) && x_r + widths <=1 && K > 0
+    x_r = x_r + widths;
+    K = K - 1;
+end;
+if x_l < 0
+    x_l = 0;
+end;
+if x_r > 1
+    x_r = 1;
+end;
+
+% Propose xprimes and shrink interval until good one found
+while 1
+    xprime = rand*(x_r - x_l) + x_l;
+    log_Px = feval(logdist, xprime);
+    if log_Px > log_uprime
+        break % this is the only way to leave the while loop
+    else
+        % Shrink in
+        if xprime > xx
+            x_r = xprime;
+        elseif xprime < xx
+            x_l = xprime;
+        else
+            error('BUG DETECTED: Shrunk to current position and still not acceptable.');
+        end;
+    end;
+end;
+samples = xprime;
+
+// File: PoissonBetaUpdateKoffi.m
+function C_param = PoissonBetaUpdateKoffi(A_param, C_param)
+% PoissonBetaUpdateKonc
+% 
+% By Jong Kyoung Kim 
+% jkkim@ebi.ac.uk
+% Last Update: 02 July 2012
+
+for ii=1:C_param.num_gene
+    f = @(x) -1*x./A_param.beta_koffi(ii) + (A_param.alpha_koffi(ii)-1).*log(x) + ...
+        sum(gammaln(x + C_param.Koni(ii)) - gammaln(x) + ...
+        (x-1)*C_param.lnPij(ii,:));
+    C_param.Koffi(ii) = PoissonBetaSliceSampleGamma(f, C_param.Koffi(ii), C_param.Koffi(ii)/2);
+end;
+C_param(1).lnKoffi = log(C_param(1).Koffi);
+
+// File: PoissonBetaUpdateSi_C.mexw64
+// File: PoissonBetaPostPredictive.m
+
+
